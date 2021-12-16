@@ -1,0 +1,15 @@
+.event_area{
+    width: 200px;
+    height: 200px;
+    background-color: aquamarine;
+    margin: auto;
+    color: black;
+}
+.event_area02{
+    width: 200px;
+    height: 200px;
+    background-color: rgb(16, 128, 90);
+    margin: auto;
+    margin-top: 100px;
+    color: blue;
+}
