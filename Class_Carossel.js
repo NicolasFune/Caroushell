@@ -1,5 +1,4 @@
 export class Carrosel{
-    
     constructor(){
         this._HTMLdoContainerCarrosel 
         this._HTMLdosSlides_li
