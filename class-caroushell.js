@@ -81,8 +81,8 @@ export class Caroushell{
             dot.addEventListener("click",()=>{
                 this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,ArrayPosiçoes[i-1],this._ArrayDeDots,this._ArrayPosições)
                 this._leftPositionSlides=ArrayPosiçoes[i-1]
-                
-            })
+            }
+            )
             this._HTMLdoContainerDosDots.appendChild(dot)
         }
         
@@ -127,7 +127,7 @@ export class Caroushell{
         if(this._leftPositionSlides < (this._QuantidadeDeSlidesTotais-1)*-100){
             this._leftPositionSlides = 0
         }
-        this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,'','')
+        this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,this._ArrayDeDots,this._ArrayPosições)
         
     }
 
@@ -140,7 +140,7 @@ export class Caroushell{
         if(this._leftPositionSlides > 0) {
             this._leftPositionSlides = (this._QuantidadeDeSlidesTotais-1)*-100
         }
-    this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,'','')
+    this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,this._ArrayDeDots,this._ArrayPosições)
     }
 
 
@@ -166,14 +166,11 @@ export class Caroushell{
             this._index = this._index + 1
         })
         this._index = 0
-
-        if(ArrayDots!=''&&ArrayPosições!=''){
-            ArrayDots.forEach((val)=>{
-                val.style.transform = "scale(1.0)"
-            })
-            
-            ArrayDots[ArrayPosições.indexOf(Posição)].style.transform = "scale(2.0)"
-        }
+        ArrayDots.forEach((val)=>{
+            val.style.transform = "scale(1.0)"
+        })
+        ArrayDots[ArrayPosições.indexOf(Posição)].style.transform = "scale(2.0)"
+        
         
     }
      CriarArraysDePosições(){
