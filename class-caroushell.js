@@ -1,4 +1,4 @@
-export class Carrosel{
+export class Caroushell{
     constructor(){
         this._HTMLdoContainerCarrosel 
         this._HTMLdosSlides_li
@@ -18,6 +18,9 @@ export class Carrosel{
         this._isPaused = false
         this._Delay 
         this._teste=0
+
+        this._ArrayPosições=[]
+        this._ArrayDeDots=[]
     }
     //Setter-Getter ------- HTMLdosSlides_li
     set HTMLdosSlides_li (val){
@@ -68,6 +71,21 @@ export class Carrosel{
     //Setter-Getter ------- QuantidadeDeSlidesTotais
     set QuantidadeDeSlidesTotais (val){
         this._QuantidadeDeSlidesTotais = val
+        this._ArrayPosições = this.CriarArraysDePosições()
+        for(let i=1;i<this._QuantidadeDeSlidesTotais+1;i++){
+            let dot = document.createElement("button")
+            dot.ariaLabel=`Slide 0${i}`
+            dot.id=`dot_x_0${i}`
+            dot.className=`dot_x`
+            this._ArrayDeDots.push(dot)
+            dot.addEventListener("click",()=>{
+                this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,ArrayPosiçoes[i-1],this._ArrayDeDots,this._ArrayPosições)
+                this._leftPositionSlides=ArrayPosiçoes[i-1]
+                
+            })
+            this._HTMLdoContainerDosDots.appendChild(dot)
+        }
+        
     }
     get QuantidadeDeSlidesTotais(){
         return this._QuantidadeDeSlidesTotais
@@ -109,7 +127,7 @@ export class Carrosel{
         if(this._leftPositionSlides < (this._QuantidadeDeSlidesTotais-1)*-100){
             this._leftPositionSlides = 0
         }
-        this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides)
+        this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,'','')
         
     }
 
@@ -122,7 +140,7 @@ export class Carrosel{
         if(this._leftPositionSlides > 0) {
             this._leftPositionSlides = (this._QuantidadeDeSlidesTotais-1)*-100
         }
-    this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides)
+    this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._leftPositionSlides,'','')
     }
 
 
@@ -142,83 +160,32 @@ export class Carrosel{
         clearInterval(this._IntervalAnimation)
     }
 
-    SetaALeftPositionDeTodosOsSlides(SlideReferente,Posição){
+    SetaALeftPositionDeTodosOsSlides(SlideReferente,Posição,ArrayDots,ArrayPosições){
         Array.from(SlideReferente).forEach(()=>{
             SlideReferente.item(this._index).style.left = Posição	+ 'vw'
             this._index = this._index + 1
         })
         this._index = 0
-    }
 
-    CriarDots(){
-
-        let ArrayDeLeftPositions = []
-        CriarArraysDePosições(this._QuantidadeDeSlidesTotais)
-
-
-        for(let i=1;i<this._QuantidadeDeSlidesTotais+1;i++){
-            let dot = document.createElement("button")
-            dot.ariaLabel=`Slide 0${i}`
-            dot.id=`dot_x_0${i}`
-            dot.className=`dot_x`
-            dot.addEventListener("click",DotClicado(i))
-            this._HTMLdoContainerDosDots.appendChild(dot)
-        }
-
-        function CriarArraysDePosições(QuantidadeTotalDeSlides){
-            let LeftPosition = 0
-            for(let i=0;i<QuantidadeTotalDeSlides;i++){
-                ArrayDeLeftPositions.push(LeftPosition)
-                LeftPosition = LeftPosition - 100
-            }
-        }
-
-
-        function DotClicado(i){
+        if(ArrayDots!=''&&ArrayPosições!=''){
+            ArrayDots.forEach((val)=>{
+                val.style.transform = "scale(1.0)"
+            })
             
+            ArrayDots[ArrayPosições.indexOf(Posição)].style.transform = "scale(2.0)"
         }
+        
+    }
+     CriarArraysDePosições(){
+        let LeftPosition = 0
+        let ArrayDeLeftPositions = []
+        for(let i=0;i<this._QuantidadeDeSlidesTotais;i++){
+            ArrayDeLeftPositions.push(LeftPosition)
+            LeftPosition = LeftPosition - 100
+        }
+        return ArrayDeLeftPositions
     }
     
     
-    
-    SelecionarDotReferenteAPosiçãoDoSlide(leftPositionSlide){
-        switch (leftPositionSlide) {
-            case -100:
-                dot_01_depoimentos.style.transform = 'scale(1.0)'
-                dot_02_depoimentos.style.transform = 'scale(2.0)'
-                dot_03_depoimentos.style.transform = 'scale(1.0)'
-                dot_04_depoimentos.style.transform = 'scale(1.0)'
-                dot_05_depoimentos.style.transform = 'scale(1.0)'
-                break;
-            case -200:
-                dot_01_depoimentos.style.transform = 'scale(1.0)'
-                dot_02_depoimentos.style.transform = 'scale(1.0)'
-                dot_03_depoimentos.style.transform = 'scale(2.0)'
-                dot_04_depoimentos.style.transform = 'scale(1.0)'
-                dot_05_depoimentos.style.transform = 'scale(1.0)'
-                break;
-            case -300:
-                dot_01_depoimentos.style.transform = 'scale(1.0)'
-                dot_02_depoimentos.style.transform = 'scale(1.0)'
-                dot_03_depoimentos.style.transform = 'scale(1.0)'
-                dot_04_depoimentos.style.transform = 'scale(2.0)'
-                dot_05_depoimentos.style.transform = 'scale(1.0)'
-                break;
-            case -400:
-                dot_01_depoimentos.style.transform = 'scale(1.0)'
-                dot_02_depoimentos.style.transform = 'scale(1.0)'
-                dot_03_depoimentos.style.transform = 'scale(1.0)'
-                dot_04_depoimentos.style.transform = 'scale(1.0)'
-                dot_05_depoimentos.style.transform = 'scale(2.0)'
-                break;
-            default:
-                dot_01_depoimentos.style.transform = 'scale(2.0)'
-                dot_02_depoimentos.style.transform = 'scale(1.0)'
-                dot_03_depoimentos.style.transform = 'scale(1.0)'
-                dot_04_depoimentos.style.transform = 'scale(1.0)'
-                dot_05_depoimentos.style.transform = 'scale(1.0)'
-                break
-        }
-    }
 }
 
