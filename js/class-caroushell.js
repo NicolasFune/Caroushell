@@ -21,6 +21,8 @@ export class Caroushell{
 
         this._ArrayPosições=[]
         this._ArrayDeDots=[]
+
+        
     }
     //Setter-Getter ------- HTMLdosSlides_li
     set HTMLdosSlides_li (val){
@@ -70,17 +72,19 @@ export class Caroushell{
     }
     //Setter-Getter ------- QuantidadeDeSlidesTotais
     set QuantidadeDeSlidesTotais (val){
+        
         this._QuantidadeDeSlidesTotais = val
         this._ArrayPosições = this.CriarArraysDePosições()
         for(let i=1;i<this._QuantidadeDeSlidesTotais+1;i++){
+            
             let dot = document.createElement("button")
             dot.ariaLabel=`Slide 0${i}`
             dot.id=`dot_x_0${i}`
             dot.className=`dot_x`
             this._ArrayDeDots.push(dot)
             dot.addEventListener("click",()=>{
-                this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,ArrayPosiçoes[i-1],this._ArrayDeDots,this._ArrayPosições)
-                this._leftPositionSlides=ArrayPosiçoes[i-1]
+                this.SetaALeftPositionDeTodosOsSlides(this._HTMLdosSlides_li,this._ArrayPosições[i-1],this._ArrayDeDots,this._ArrayPosições)
+                this._leftPositionSlides=this._ArrayPosições[i-1]
             }
             )
             this._HTMLdoContainerDosDots.appendChild(dot)
@@ -98,8 +102,7 @@ export class Caroushell{
         return this._HTMLdoContainerDosDots
     }
 
-
-
+   
 
 
 
@@ -160,9 +163,9 @@ export class Caroushell{
         clearInterval(this._IntervalAnimation)
     }
 
-    SetaALeftPositionDeTodosOsSlides(SlideReferente,Posição,ArrayDots,ArrayPosições){
-        Array.from(SlideReferente).forEach(()=>{
-            SlideReferente.item(this._index).style.left = Posição	+ 'vw'
+    SetaALeftPositionDeTodosOsSlides(ClassesDosSlides,Posição,ArrayDots,ArrayPosições){
+        Array.from(ClassesDosSlides).forEach(()=>{
+            ClassesDosSlides.item(this._index).style.left = Posição	+ 'vw'
             this._index = this._index + 1
         })
         this._index = 0

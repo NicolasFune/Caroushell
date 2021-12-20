@@ -27,7 +27,7 @@
     
 }
 .carrosel_x_li{
-    width: 100%;
+    width: 33.33%;
     height: 100%;
     position: relative;
     transition: all .9s ease-out;
